@@ -1,0 +1,70 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="DailyHaiku.WP8.Views.HaikuView"
+    Style="{StaticResource DefaultPage}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:views="clr-namespace:DailyHaiku.WP8.Views"
+    xmlns:Micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:vm="clr-namespace:DailyHaiku.WP8.ViewModels"
+    xmlns:bab="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    d:DataContext="{d:DesignInstance Type=vm:HaikuViewModel, IsDesignTimeCreatable=True}" Micro:Bind.AtDesignTime="True">
+
+    <Grid x:Name="LayoutRoot" Background="{Binding Background}">
+        <Grid.Resources>
+            <Style TargetType="ListBoxItem" x:Key="ListBoxItemContainerStyle">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+            <Style TargetType="telerikPrimitives:RadDataBoundListBoxItem" x:Key="ItemContainerStyle">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+            <Storyboard x:Name="FadeInStoryBoard1">
+                <DoubleAnimation Storyboard.TargetName="HaikuImage1" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:2" />
+            </Storyboard>
+        </Grid.Resources>
+            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationName" Text="DAILY HAIKU" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="Today's Haiku" Margin="11,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="12, 0, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <views:HaikuItemView x:Name="CurrentHaiku" Haiku="{Binding TodayHaiku}" Grid.Row="0" Margin="6, 0, 0, 0"/>
+            <telerikPrimitives:RadBusyIndicator Background="#CC000000" Grid.Row="0" Grid.ColumnSpan="2" x:Name="LoadingIndicator" AnimationStyle="AnimationStyle1" Foreground="White" IsRunning="{Binding IsLoading}"/>
+            <Image x:Name="HaikuImage1"   Stretch="Fill" Margin="12, -2, 24, 12" Grid.Row="1">
+                <Image.Source>
+                    <BitmapImage x:Name="HaikuImageSource1" CreateOptions="BackgroundCreation" UriSource="{Binding ImageSource1}" />
+                </Image.Source>
+            </Image>
+        </Grid>
+        <!--<Image Source="../Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="3" IsHitTestVisible="False" />-->
+        <bab:BindableAppBar x:Name="AppBar">
+            <bab:BindableAppBarButton x:Name="Previous" Text="Previous" IconUri="Assets/ApplicationBar.Haiku.png" />
+            <bab:BindableAppBarButton x:Name="Share" Text="Share" IconUri="Assets/ApplicationBar.Share.png" />
+        </bab:BindableAppBar>
+        
+        <views:DailyHaikuAdControl x:Name="DailyHaikuAdControl" Grid.Row="2"/>
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>

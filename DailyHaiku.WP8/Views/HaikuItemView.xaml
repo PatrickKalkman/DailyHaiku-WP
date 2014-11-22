@@ -1,0 +1,57 @@
+﻿ <UserControl x:Class="DailyHaiku.WP8.Views.HaikuItemView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="140" d:DesignWidth="700">
+    
+	<UserControl.Resources>
+		<SolidColorBrush Color="#FF33B0BF" x:Key="HighLightColor"/>
+		<Style x:Key="TwitterNameStyle" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+		<Style x:Key="TimeAfterTweet" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="{StaticResource HighLightColor}"/>
+		</Style>
+		<Style x:Key="TwitterHandleStyle" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="{StaticResource HighLightColor}"/>
+		</Style>
+        <Style x:Key="TweetStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Storyboard x:Name="FadeInStoryBoard">
+            <DoubleAnimation Storyboard.TargetName="TwitterUserProfileImage" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:2" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid Margin="0, 0, 0, 0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="60*"/>
+        </Grid.RowDefinitions> 
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="TwitterUserProfileImage"  Grid.Column="0" VerticalAlignment="Top" Grid.RowSpan="2"  HorizontalAlignment="Left"  Margin="6,8,0,0" >
+            <Image.Source>
+                <BitmapImage x:Name="TwitterUserProfileImageSource" />
+            </Image.Source>
+        </Image>
+        
+        <StackPanel Orientation="Vertical"  Grid.Column="1" Grid.Row="0" Margin="12,0,0,0">
+            <TextBlock x:Name="TwitterUserName" Style="{StaticResource TwitterNameStyle}" />
+            <TextBlock x:Name="TwitterUserHandle" Margin="0, -6, 0, 0" Style="{StaticResource TwitterHandleStyle}" />
+        </StackPanel>
+
+        <TextBlock Margin="12, -6, 0, 0" TextWrapping="Wrap" x:Name="Tweet" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource TweetStyle}"  />
+        <TextBlock x:Name="TimeAfterTweet" Margin="0,0,0,0" Grid.Column="2" VerticalAlignment="Top" Style="{StaticResource TimeAfterTweet}" />
+    </Grid>
+</UserControl>
