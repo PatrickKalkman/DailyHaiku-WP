@@ -1,5 +1,6 @@
-DailyHaiku-WP
-=============
+#DailyHaiku-WP
+[![Build status](https://ci.appveyor.com/api/projects/status/cclh106fxi19fh1o/branch/master?svg=true)](https://ci.appveyor.com/project/kalkie/dailyhaiku-wp)
+<br/>
 ![Logo](http://cdn.marketplaceimages.windowsphone.com/v8/images/728577f3-b02b-4f5f-bf7e-3964bbe9589b?imageType=ws_icon_large)
 
 Get your daily haiku on your Windows Phone
